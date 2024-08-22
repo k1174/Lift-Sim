@@ -1,5 +1,3 @@
-const ele = document.getElementById("queue")
-
 let queue = [];
 
 function updateQueue(btn, floor) {
@@ -9,11 +7,9 @@ function updateQueue(btn, floor) {
             return;
         }
     }
+    
     if (liftPosition.includes(floor)) {
-        // console.log("Lift is already at the floor", floor, liftPosition[floor - 1])
-
         const lift = document.getElementById(`lift-${liftPosition.indexOf(floor) + 1}`)
-        // console.log(lift)
         if (liftStatus[liftPosition.indexOf(floor)] === 0) {
             openDoors(lift)
         }
@@ -31,15 +27,12 @@ setInterval(() => {
 }, 100)
 
 function liftSystem(btn, floor) {
-
     let lift = findNearestLift(floor)
     if (lift === 0) {
         return;
     }
-    // ele.innerHTML = queue.map((btn) => btn.id).join('->');
     move(lift, floor, btn);
-    //remove first element of queue
-    queue.shift();
+    queue.shift();//remove first element of queue
 }
 
 let liftPosition = [];//tracking the lift postion
@@ -52,7 +45,6 @@ function setLift(n) {
     }
 }
 
-
 function findNearestLift(floor) {
     let min = 100;
     let lift = 0;
@@ -64,7 +56,6 @@ function findNearestLift(floor) {
             lift = i + 1;
         }
     }
-
     if (lift === 0) return 0;//no idle lift
 
     liftStatus[lift - 1] = 1;//changing lift state
@@ -73,10 +64,10 @@ function findNearestLift(floor) {
     return lift;
 }
 
-
 //lift movement 
 function move(id, floor, btn) {
     const lift = document.getElementById(`lift-${id}`)
+   
     let yaxis = (40 * (floor - 1))
     const btnY = btn.getBoundingClientRect().y;
     const liftY = lift.getBoundingClientRect().y;
@@ -87,7 +78,6 @@ function move(id, floor, btn) {
     lift.style.transition = `transform ${duration}s`
     lift.style.transform = `translateY(-${yaxis}px)`
 
-    
     setTimeout(() => {
         openDoors(lift)
     }, (diff / 36) * 1000 * 2)
@@ -95,19 +85,14 @@ function move(id, floor, btn) {
 
 function openDoors(lift) {
     const liftId = lift.id.split('-')[1]
-
     liftStatus[liftId - 1] = 1;
-
     const child = lift.children[0]
     child.classList.add('animate')
 
     setTimeout(() => {
-
         liftStatus[liftId - 1] = 0;
-        console.log("changing status of lift :", liftId, liftStatus[liftId - 1], liftStatus)
         child.classList.remove('animate')
     }, 4000)
 }
-
 
 export { updateQueue, setLift };

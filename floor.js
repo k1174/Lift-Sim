@@ -9,16 +9,20 @@ function handleSubmit(e) {
     const noOfFloors = e.target.floors.value;
     const noOFLifts = e.target.lifts.value;
 
-    setLift(noOFLifts)
-
+    
     var h3 = document.createElement("h3");
     h3.textContent = `Floors : ${noOfFloors} and Lifts : ${noOFLifts}`;
     status.appendChild(h3)
-
     
+    setLift(noOFLifts)
+
+    //floor creation
     for (let i = noOfFloors; i > 0; i--) {
         floors.appendChild(createFloor(i));
     }
+
+    //lift creation
+    createLifts(noOFLifts)
 }
 
 function createFloor(n) {
@@ -40,11 +44,24 @@ function buttonElement(id, dir) {
     button.classList.add(dir);
     button.innerHTML = dir;
     button.addEventListener('click', (e)=>{
-        // console.log(button.id)
+
         updateQueue(button, id)
         
     })
     return button;
+}
+
+const liftSystem = document.getElementById('lift-system')
+
+function createLifts(n) {
+    for (let i = 1; i <= n; i++) {
+        const doors = document.createElement('div')
+        const lift = document.createElement('div')
+        lift.id = `lift-${i}`
+        lift.classList.add('lift')
+        lift.appendChild(doors);
+        liftSystem.appendChild(lift);
+    }
 }
 
 export { handleSubmit }
