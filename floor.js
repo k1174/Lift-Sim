@@ -6,7 +6,7 @@ const floors = document.getElementById("building")
 
 function handleSubmit(e) {
     e.preventDefault();
-    const noOfFloors = e.target.floors.value;
+    const noOfFloors = parseInt(e.target.floors.value);
     const noOFLifts = e.target.lifts.value;
 
     
