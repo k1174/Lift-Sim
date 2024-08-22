@@ -1,0 +1,66 @@
+.lift{
+    width: 20px;
+    height: 30px;
+    background-color: black;
+    margin-left: 2px;
+}
+
+.flex{
+    display: flex;
+    align-items: end;
+    gap: 2px;
+}
+
+
+input{
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+form{
+    margin-bottom: 20px;
+    background-color: bisque;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.lift-system{
+    padding-left: 100px;
+    margin-top: -44px;
+}
+
+.floor{
+    height: 40px;
+}
+
+.animate {
+    /* animation properties */
+    animation-name: my-animation;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-iteration-count: 2;
+    animation-timing-function: linear;
+    
+    /* other properties */
+    width: 20px;
+    height: 30px;
+    position: relative;
+    left: 0; 
+    right: 0; 
+    margin-left: auto;
+    margin-right: auto; 
+  
+  }
+  
+  @keyframes my-animation {
+    from {
+      background-color: white;
+      width: 0.1px;
+     
+    }
+    to {
+      background-color: white;
+      width: 20px;
+     
+    }
+  }
