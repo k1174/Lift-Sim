@@ -20,9 +20,16 @@ function handleSubmit(e) {
     for (let i = noOfFloors; i > 0; i--) {
         floors.appendChild(createFloor(i));
     }
+    //removing ground floor up button
+    document.getElementById("down-1").remove();
+    // removing top floor down button
+    const top = "up-"+noOfFloors;
+    document.getElementById(top).remove();
 
     //lift creation
-    createLifts(noOFLifts)
+    if(noOfFloors > 1){
+        createLifts(noOFLifts)
+    }
 }
 
 function createFloor(n) {
@@ -31,6 +38,7 @@ function createFloor(n) {
     floor.classList.add("floor")
     var obj = document.createElement('div')
     obj.classList.add("flex")
+    obj.innerHTML = `<span style="margin-right:6px">${n} <span/>`;
     obj.appendChild(buttonElement(n, "up"))
     obj.appendChild(buttonElement(n, "down"))
     floor.appendChild(obj)
