@@ -2,19 +2,22 @@ let queue = [];
 
 function updateQueue(btn, floor) {
     for (let i = 0; i < queue.length; i++) {
-        if (queue[i].id.split('-')[1] === btn.id.split('-')[1]) {
+        if (queue[i].id === btn.id) {
             console.log("Already in queue", btn.id)
             return;
         }
     }
-    
-    if (liftPosition.includes(floor)) {
-        const lift = document.getElementById(`lift-${liftPosition.indexOf(floor) + 1}`)
-        if (liftStatus[liftPosition.indexOf(floor)] === 0) {
-            openDoors(lift)
+
+    for (let i = 0; i < liftPosition.length; i++) {
+        if (liftPosition[i] == floor && ((liftPositionBtn[i]) == (btn.id.split('-')[0] == 'up' ? 1 : -1))) {
+            const lift = document.getElementById(`lift-${i + 1}`)
+            if (liftStatus[i] === 0) {
+                openDoors(lift)
+            }
+            return;
         }
-        return;
     }
+
     queue.push(btn)
 }
 
@@ -27,7 +30,7 @@ setInterval(() => {
 }, 100)
 
 function liftSystem(btn, floor) {
-    let lift = findNearestLift(floor)
+    let lift = findNearestLift(floor, btn)
     if (lift === 0) {
         return;
     }
@@ -36,16 +39,18 @@ function liftSystem(btn, floor) {
 }
 
 let liftPosition = [];//tracking the lift postion
+let liftPositionBtn = []//1 up and -1 down
 let liftStatus = [];//0-> idle, 1->active
 
 function setLift(n) {
     for (let i = 1; i <= n; i++) {
         liftPosition.push(0);
         liftStatus.push(0);
+        liftPositionBtn.push(0);
     }
 }
 
-function findNearestLift(floor) {
+function findNearestLift(floor, btn) {
     let min = 100;
     let lift = 0;
 
@@ -60,6 +65,7 @@ function findNearestLift(floor) {
 
     liftStatus[lift - 1] = 1;//changing lift state
     liftPosition[lift - 1] = floor;
+    liftPositionBtn[lift - 1] = btn.id.split('-')[0] == 'up' ? 1 : -1;
 
     return lift;
 }
@@ -67,7 +73,7 @@ function findNearestLift(floor) {
 //lift movement 
 function move(id, floor, btn) {
     const lift = document.getElementById(`lift-${id}`)
-   
+
     let yaxis = (40 * (floor - 1))
     const btnY = btn.getBoundingClientRect().y;
     const liftY = lift.getBoundingClientRect().y;
