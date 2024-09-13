@@ -17,14 +17,16 @@ function handleSubmit(e) {
     setLift(noOFLifts)
 
     //floor creation
-    for (let i = noOfFloors; i > 0; i--) {
-        floors.appendChild(createFloor(i));
+    if(noOfFloors > 0){
+            for (let i = noOfFloors; i > 0; i--) {
+            floors.appendChild(createFloor(i));
+        }
+        //removing ground floor up button
+        document.getElementById("down-1").remove();
+        // removing top floor down button
+        const top = "up-"+noOfFloors;
+        document.getElementById(top).remove();
     }
-    //removing ground floor up button
-    document.getElementById("down-1").remove();
-    // removing top floor down button
-    const top = "up-"+noOfFloors;
-    document.getElementById(top).remove();
 
     //lift creation
     if(noOfFloors > 1){
