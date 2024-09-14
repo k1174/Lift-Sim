@@ -29,9 +29,12 @@ form {
 }
 
 .lift-system {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   overflow-x: auto;
   margin-left: 100px;
-  margin-top: -44px;
+  top: -16px;
 }
 
 .floor {
@@ -73,4 +76,9 @@ form {
 
 .door {
   width: 20px;
+}
+
+.main{
+  width: 100%;
+  position: relative;
 }
