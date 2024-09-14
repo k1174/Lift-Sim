@@ -30,7 +30,7 @@ form {
 
 .lift-system {
   position: absolute;
-  width: 100%;
+  width: calc(100% - 100px);
   height: 100%;
   overflow-x: auto;
   margin-left: 100px;
