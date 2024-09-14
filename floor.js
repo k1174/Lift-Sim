@@ -66,6 +66,7 @@ const liftSystem = document.getElementById('lift-system')
 function createLifts(n) {
     for (let i = 1; i <= n; i++) {
         const doors = document.createElement('div')
+        doors.classList.add('door')
         const lift = document.createElement('div')
         lift.id = `lift-${i}`
         lift.classList.add('lift')

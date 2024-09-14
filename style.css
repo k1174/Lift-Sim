@@ -29,7 +29,7 @@ form{
 }
 
 .lift-system{
-    padding-left: 100px;
+    margin-left: 100px;
     margin-top: -44px;
 }
 
@@ -68,3 +68,7 @@ form{
      
     }
   }
+
+.door{
+  width: 20px;
+}
