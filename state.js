@@ -31,10 +31,15 @@ setInterval(() => {
 
 function liftSystem(btn, floor) {
     let lift = findNearestLift(floor, btn)
+
     if (lift === 0) {
         return;
     }
-    move(lift, floor, btn);
+    const diff = Math.abs(liftPosition[lift - 1] - floor) ;
+    liftStatus[lift - 1] = 1;//changing lift state
+    liftPosition[lift - 1] = floor;
+    liftPositionBtn[lift - 1] = btn.id.split('-')[0] == 'up' ? 1 : -1;
+    move(lift, floor, btn, diff);
     queue.shift();//remove first element of queue
 }
 
@@ -44,7 +49,7 @@ let liftStatus = [];//0-> idle, 1->active
 
 function setLift(n) {
     for (let i = 1; i <= n; i++) {
-        liftPosition.push(0);
+        liftPosition.push(1);
         liftStatus.push(0);
         liftPositionBtn.push(0);
     }
@@ -63,30 +68,27 @@ function findNearestLift(floor, btn) {
     }
     if (lift === 0) return 0;//no idle lift
 
-    liftStatus[lift - 1] = 1;//changing lift state
-    liftPosition[lift - 1] = floor;
-    liftPositionBtn[lift - 1] = btn.id.split('-')[0] == 'up' ? 1 : -1;
-
     return lift;
 }
 
 //lift movement 
-function move(id, floor, btn) {
+function move(id, floor, btn, diff) {
+
     const lift = document.getElementById(`lift-${id}`)
 
     let yaxis = (40 * (floor - 1))
     const btnY = btn.getBoundingClientRect().y;
     const liftY = lift.getBoundingClientRect().y;
 
-    const diff = Math.abs(btnY - liftY)
-    const duration = (diff / 36) * 2;
+    // const diff = Math.abs(btnY - liftY)
+    // const duration = (diff / 36) * 2;
 
-    lift.style.transition = `transform ${duration}s`
+    lift.style.transition = `transform ${diff*2}s`
     lift.style.transform = `translateY(-${yaxis}px)`
 
     setTimeout(() => {
         openDoors(lift)
-    }, (diff / 36) * 1000 * 2)
+    }, (diff * 2 ) * 1000 )
 }
 
 function openDoors(lift) {
@@ -98,7 +100,7 @@ function openDoors(lift) {
     setTimeout(() => {
         liftStatus[liftId - 1] = 0;
         child.classList.remove('animate')
-    }, 4000)
+    }, 5000)
 }
 
 export { updateQueue, setLift };
