@@ -85,6 +85,8 @@ function move(id, floor, btn, diff) {
 
     lift.style.transition = `transform ${diff*2}s`
     lift.style.transform = `translateY(-${yaxis}px)`
+    // transition-timing-function: linear;
+    lift.style.transitionTimingFunction = 'linear';
 
     setTimeout(() => {
         openDoors(lift)
