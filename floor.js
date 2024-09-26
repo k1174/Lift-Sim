@@ -73,6 +73,10 @@ function createLifts(n) {
         lift.appendChild(doors);
         liftSystem.appendChild(lift);
     }
+    if(liftSystem.scrollWidth > liftSystem.offsetWidth){
+        liftSystem.style.height = `${liftSystem.offsetHeight + 5}px`
+        liftSystem.style.paddingBottom = '5px'
+    }
 }
 
 export { handleSubmit }
