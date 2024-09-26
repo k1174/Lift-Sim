@@ -7,6 +7,7 @@ document.addEventListener('submit', (e) => {
         document.getElementById('form').remove()
     }
     else{
+        e.preventDefault();
         alert("Floors should be greater than 1")
     }
 })
